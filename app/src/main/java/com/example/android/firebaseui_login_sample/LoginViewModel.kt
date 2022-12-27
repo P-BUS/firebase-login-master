@@ -20,7 +20,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.preference.PreferenceManager
-import kotlin.random.Random
 
 class LoginViewModel : ViewModel() {
 
@@ -29,7 +28,8 @@ class LoginViewModel : ViewModel() {
             "The first commercial Android device was launched in September 2008",
             "The Android operating system has over 2 billion monthly active users",
             "The first Android version (1.0) was released on September 23, 2008",
-            "The first smart phone running Android was the HTC Dream called the T-Mobile G1 in " + "some countries"
+            "The first smart phone running Android was the HTC Dream called the T-Mobile G1 in "
+                    + "some countries"
         )
 
         val californiaFacts = arrayOf(
@@ -41,7 +41,9 @@ class LoginViewModel : ViewModel() {
     }
 
     enum class AuthenticationState {
-        AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
+        AUTHENTICATED,
+        UNAUTHENTICATED,
+        INVALID_AUTHENTICATION
     }
 
     val authenticationState = FirebaseUserLiveData().map { user ->
@@ -63,6 +65,6 @@ class LoginViewModel : ViewModel() {
         val defaultFactType = context.resources.getStringArray(R.array.fact_type)[0]
         val funFactType = sharedPreferences.getString(factTypePreferenceKey, defaultFactType)
 
-        return androidFacts[Random.nextInt(0, androidFacts.size)]
+        return androidFacts[(0..androidFacts.size).random()]
     }
 }

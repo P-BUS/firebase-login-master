@@ -20,14 +20,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.example.android.firebaseui_login_sample.databinding.FragmentMainBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -100,6 +99,7 @@ class MainFragment : Fragment() {
                         AuthUI.getInstance().signOut(requireContext())
                     }
                 }
+
                 else -> {
                     binding.welcomeText.text = factToDisplay
 
@@ -128,17 +128,21 @@ class MainFragment : Fragment() {
         // If users choose to register with their email,
         // they will need to create a password as well
         val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build()
-            //
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build()
+            // This is where you can provide more ways for users to register and
+            // sign in.
         )
 
         // Create and launch sign-in intent.
         // We listen to the response of this activity with the
         // SIGN_IN_RESULT_CODE code
         startActivityForResult(
-            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
-                    providers
-                ).build(), MainFragment.SIGN_IN_RESULT_CODE
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build(),
+            MainFragment.SIGN_IN_RESULT_CODE
         )
     }
 }
