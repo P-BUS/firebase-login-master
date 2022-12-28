@@ -42,6 +42,7 @@ class MainFragment : Fragment() {
     // Get a reference to the ViewModel scoped to this Fragment
     private val viewModel by viewModels<LoginViewModel>()
     private lateinit var binding: FragmentMainBinding
+//    private val getContent = registerForActivityResult(ActivityResultContracts.) {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -62,6 +63,7 @@ class MainFragment : Fragment() {
         binding.authButton.setOnClickListener { launchSignInFlow() }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SIGN_IN_RESULT_CODE) {
@@ -133,7 +135,6 @@ class MainFragment : Fragment() {
             // This is where you can provide more ways for users to register and
             // sign in.
         )
-
         // Create and launch sign-in intent.
         // We listen to the response of this activity with the
         // SIGN_IN_RESULT_CODE code
@@ -142,7 +143,7 @@ class MainFragment : Fragment() {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .build(),
-            MainFragment.SIGN_IN_RESULT_CODE
+            SIGN_IN_RESULT_CODE
         )
     }
 }
